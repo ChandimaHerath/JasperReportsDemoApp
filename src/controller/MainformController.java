@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import model.SubjectMarks;
 
 public class MainformController {
@@ -41,6 +42,15 @@ public class MainformController {
         txtSubject.textProperty().addListener(changeListener);
 
         txtMarks.textProperty().addListener(changeListener);
+
+        // Number only text field
+        txtMarks.setTextFormatter(new TextFormatter<Object>(change -> {
+            if (change.getControlNewText().matches("^\\d*([.]\\d*)?$")) {
+                return change;
+            }
+
+            return null;
+        }));
     }
 
 
