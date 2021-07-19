@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -19,9 +21,29 @@ public class MainformController {
 
 
     public void initialize(){
+        btnAdd.setDisable(true);
+        btnRemove.setDisable(true);
+        btnExport.setDisable(true);
+        btnPrint.setDisable(true);
 
+        ChangeListener<String> changeListener = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!(txtSubject.getText().trim().isEmpty()) || txtMarks.getText().trim().isEmpty()) {
+                    btnAdd.setDisable(false);
+                } else {
+                    btnAdd.setDisable(true);
+                }
 
+            }
+        };
+
+        txtSubject.textProperty().addListener(changeListener);
+
+        txtMarks.textProperty().addListener(changeListener);
     }
+
+
 
     public void btnRemove_OnAction(ActionEvent actionEvent) {
     }
